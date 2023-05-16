@@ -1,34 +1,32 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using AgendaMedica.Models;
-using System.Text.RegularExpressions;
 
 namespace AgendaMedica.Controllers
 {
-    public class SectorController : Controller
+    public class AtencionController : Controller
     {
-        private BdagendaContext db = new();
 
+        private BdagendaContext db = new();
         public IActionResult Index()
         {
-           return View(db.Sectors.ToList());
-            //return View();
+            return View();
         }
 
         public IActionResult Create()
         {
             return View();
         }
+
         [HttpPost]
-        public IActionResult Create(Sector sector)
+        public IActionResult Create(Atencion atencion)
         {
             //EntityFramework
             //insert into marca(nombre) values('nombre marca')
-            db.Add(sector);
+            db.Add(atencion);
             db.SaveChanges();
             // return View();
-            return RedirectToAction("Index");
+            return RedirectToAction("Create");
         }
-
 
     }
 }
