@@ -4,3 +4,23 @@
     <a asp-action="create" class="btn btn-primary">Crear Sector</a>
 
 </div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Sector</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.IdSector</td>
+                <td>@item.Sector1</td>
+                <td>
+
+                </td>
+            </tr>
+        }
+        </table>

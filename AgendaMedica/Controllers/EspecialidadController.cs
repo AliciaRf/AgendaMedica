@@ -7,7 +7,7 @@ namespace AgendaMedica.Controllers
         private BdagendaContext db = new();
         public IActionResult Index()
         {
-            // return View(db.Sectors.ToList());
+             //return View(db.Sectors.ToList());
             return View();
         }
 

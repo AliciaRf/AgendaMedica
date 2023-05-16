@@ -37,7 +37,7 @@ public partial class BdagendaContext : DbContext
             //optiob nsBuilder.UseSqlServer("server=PC31LAB108; initial catalog=InventarioDB; user id=sa;password=ipvg2023;")        
 
             // Casa Alicia                   
-            optionsBuilder.UseSqlServer("server=DESKTOP-RVLJI2G\\SQLEXPRESS; initial catalog=BDAgenda; user id=sa;password=Ariquelme; TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer("server=DESKTOP-RVLJI2G\\SQLEXPRESS; initial catalog=BDAgenda; user id=sa;password=Ariquelme; TrustServerCertificate=True;");//we
 
             // Casa Cristobal                   
             //optionsBuilder.UseSqlServer("server=PC-CRISTOBAL\\SQLEXPRESS; initial catalog=InventarioDB; user id=sa;password=lpw2023;");
