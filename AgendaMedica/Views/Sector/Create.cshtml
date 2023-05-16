@@ -1,0 +1,19 @@
+﻿@model AgendaMedica.Models.Sector
+@{
+    ViewData["Title"] = "Crear Sector";
+}
+<h1>Crear Sector</h1>
+<div>
+    <form asp-action="Create">
+        <div> 
+        <label class="form-label">Sector</label>
+            <input type="text" class="form-control" asp-for="Sector1" />
+        </div>
+        <div class="mt-3 text-end">
+            <a asp-action="Index" class="btn btn-outline-info">Volver</a>
+    
+        <input type="submit" value="Crear" class="btn btn-outline-success" />
+        </div>
+
+    </form>
+</div>
