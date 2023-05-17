@@ -11,7 +11,7 @@ namespace AgendaMedica.Controllers
         //método para listar todas las marcas
         public IActionResult Index()
         {
-            //select * from prevision
+            //select * from usuario
             return View(db.Usuarios.ToList());
         }
 
