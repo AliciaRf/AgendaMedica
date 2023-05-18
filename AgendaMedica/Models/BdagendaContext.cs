@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
+using System.Runtime.Intrinsics.X86;
 using Microsoft.EntityFrameworkCore;
 
 namespace AgendaMedica.Models;
@@ -30,18 +32,9 @@ public partial class BdagendaContext : DbContext
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("server=.\\SQLEXPRESS; initial catalog=BDAgenda; user id=sa;password=admin;Encrypt=False");
 
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-            //optionsBuilder.UseSqlServer("server=PC31LAB108; initial catalog=InventarioDB; user id=sa;password=ipvg2023;");
-            //optionsBuilder.UseSqlServer("server=.\\sqlexpress06; initial catalog=InventarioDB; Trusted_connection =True;");
-            //optionsBuilder.UseSqlServer("server=DESKTOP-RVLJI2G\\SQLEXPRESS; initial catalog=InventarioDB; user id=sa;password=Ariquelme;");
-            // Casa Alicia                   
-            optionsBuilder.UseSqlServer("server=DESKTOP-RVLJI2G\\SQLEXPRESS; initial catalog=BDAgenda; user id=sa;password=Ariquelme; TrustServerCertificate=True;");//we
-
-        }
-    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Agendar>(entity =>
