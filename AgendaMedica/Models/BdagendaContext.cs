@@ -32,17 +32,18 @@ public partial class BdagendaContext : DbContext
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+    #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("server=.\\SQLEXPRESS; initial catalog=BDAgenda; user id=sa;password=admin;Encrypt=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Agendar>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("Agendar");
+            entity.HasKey(e => e.IdAg);
 
+            entity.ToTable("Agendar");
+
+            entity.Property(e => e.IdAg).HasColumnName("id_ag");
             entity.Property(e => e.ApePac)
                 .HasMaxLength(150)
                 .IsUnicode(false)
@@ -59,9 +60,6 @@ public partial class BdagendaContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("fono_pac");
             entity.Property(e => e.HoraAg).HasColumnName("hora_ag");
-            entity.Property(e => e.IdAg)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("id_ag");
             entity.Property(e => e.IdAte).HasColumnName("id_ate");
             entity.Property(e => e.IdEsp).HasColumnName("id_esp");
             entity.Property(e => e.IdPrev).HasColumnName("id_prev");
@@ -75,30 +73,30 @@ public partial class BdagendaContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("rut_pac");
 
-            entity.HasOne(d => d.IdAteNavigation).WithMany()
+            entity.HasOne(d => d.IdAteNavigation).WithMany(p => p.Agendars)
                 .HasForeignKey(d => d.IdAte)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Agendar_Atencion");
 
-            entity.HasOne(d => d.IdEspNavigation).WithMany()
+            entity.HasOne(d => d.IdEspNavigation).WithMany(p => p.Agendars)
                 .HasForeignKey(d => d.IdEsp)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Agendar_Especialidad");
 
-            entity.HasOne(d => d.IdPrevNavigation).WithMany()
+            entity.HasOne(d => d.IdPrevNavigation).WithMany(p => p.Agendars)
                 .HasForeignKey(d => d.IdPrev)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Agendar_Prevision");
 
-            entity.HasOne(d => d.IdSectorNavigation).WithMany()
+            entity.HasOne(d => d.IdSectorNavigation).WithMany(p => p.Agendars)
                 .HasForeignKey(d => d.IdSector)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Agendar_Sector");
 
-            entity.HasOne(d => d.RutPacNavigation).WithMany()
+            entity.HasOne(d => d.RutPacNavigation).WithMany(p => p.Agendars)
                 .HasForeignKey(d => d.RutPac)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Agendar_Paciente");
+                .HasConstraintName("FK_Agendar_Paciente1");
         });
 
         modelBuilder.Entity<Atencion>(entity =>

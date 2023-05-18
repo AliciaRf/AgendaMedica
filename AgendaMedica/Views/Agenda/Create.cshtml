@@ -1,0 +1,37 @@
+﻿@model AgendaMedica.Models.Agendar
+@{
+    ViewData["Title"] = "Agendar Paciente";
+}
+<h1>Crear Agenda</h1>
+<div class="row">
+    <form asp-action="Create">
+        <label>Fecha</label>
+        <input asp-for="FechaAg" class="form-control" />
+        <label>Hora</label>
+        <input asp-for="HoraAg" class="form-control" />
+        <label>Especialidad</label>
+        <select asp-for="IdEsp" class="form-select" asp-items="ViewBag.IdEspecialidad"></select>
+        <label>Tipo de Atencion</label>
+        <select asp-for="IdAte" class="form-control" asp-items="ViewBag.IdAtenciones"></select>
+        
+        <label>pacientes Rut</label>
+        <select asp-for="RutPac" class="form-control" asp-items="ViewBag.IdPaciente"></select>
+        <label>Nombre paciente</label>
+         <input asp-for="NomPac" class="form-control" />
+        <label>Apellidos paciente</label>
+        <input asp-for="ApePac" class="form-control" />
+        <label>prevision</label>
+        <select asp-for="IdPrev" class="form-control" asp-items="ViewBag.IdPrevision"></select>
+        <label>Fonos paciente</label>
+        <input asp-for="FonoPac" class="form-control" />
+        <label>Direccion paciente</label>
+        <input asp-for="DirPac" class="form-control" />
+        <label>Sector</label>
+        <select asp-for="IdSector" class="form-control" asp-items="ViewBag.IdSectores"></select>
+
+        <div class="text-end mt-3">
+            <input type="reset" value="Limpiar" class="btn btn-info" />
+            <input type="submit" value="Guardar" class="btn btn-primary" />
+        </div>
+    </form>
+</div>

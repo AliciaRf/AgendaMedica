@@ -18,4 +18,6 @@ public partial class Paciente
     public string DireccionPac { get; set; } = null!;
 
     public string? EmailPac { get; set; }
+
+    public virtual ICollection<Agendar> Agendars { get; set; } = new List<Agendar>();
 }

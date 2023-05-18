@@ -1,0 +1,49 @@
+﻿@model IEnumerable<AgendaMedica.Models.Agendar>
+@{
+}
+<h1>Lista de Agenda</h1>
+<hr />
+<div class="text-end">
+    <a asp-action="Create" class="btn btn-outline-primary">Crear</a>
+</div>
+<table class="table table-bordered">
+    <thead class="bg-dark text-white">
+        <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Especialidad</th>
+            <th>tipo de atencion</th>
+            <th>Rut del paciente</th>
+            <th>Nombre del Paciente</th>
+            <th>Apellidos del Paciente</th>
+            <th>Prevision</th>
+            <th>Telefono del Paciente</th>
+            <th>Direccion del Paciente</th>
+            <th>Sector</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FechaAg</td>
+                <td>@item.HoraAg</td>
+
+                <td>@item.IdEspNavigation.Especialidad1</td>
+                <td>@item.IdAteNavigation.NombreAte</td>
+                <td>@item.RutPac</td>
+                <td>@item.NomPac</td>
+                <td>@item.ApePac</td>
+                <td>@item.IdPrevNavigation.NombrePrev</td>
+                <td>@item.FonoPac</td>
+                <td>@item.DirPac</td>
+                <td>@item.IdSectorNavigation.Sector1</td>
+                
+                <td>
+                   
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

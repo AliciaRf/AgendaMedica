@@ -26,6 +26,8 @@ namespace AgendaMedica.Controllers
             return RedirectToAction("Create");
         }
 
+        
+
 
     }
 }

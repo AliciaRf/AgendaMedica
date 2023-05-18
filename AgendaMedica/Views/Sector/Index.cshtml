@@ -4,8 +4,8 @@
     <a asp-action="create" class="btn btn-primary">Crear Sector</a>
 
 </div>
-<table class="table">
-    <thead>
+<table class="table table-bordered">
+    <thead class="bg-dark text-white">
         <tr>
             <th>ID</th>
             <th>Sector</th>
@@ -19,7 +19,10 @@
                 <td>@item.IdSector</td>
                 <td>@item.Sector1</td>
                 <td>
-
+                        <a asp-action="Edit" asp-route-id="@item.IdSector " 
+                        class="btn btn-warning"><i class="bi bi-pencil-square"> </i>Editar</a>
+                                <a asp-action="Delete" asp-route-id="@item.IdSector "
+                        class="btn btn-danger"><i class="bi bi-trash"></i> Eliminar</a>
                 </td>
             </tr>
         }
