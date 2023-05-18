@@ -1,0 +1,18 @@
+﻿@model AgendaMedica.Models.Prevision
+
+
+<h1>Editar Previsión</h1>
+
+<div>
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="IdPrev" />
+        <div class="form-group">
+            <label class="form-label">Previsión</label>
+            <input type="text" class="form-control" asp-for="NombrePrev" />
+        </div>
+        <div class="mt-3 text-end">
+            <a asp-action="Index" class="btn btn-outline-info">Volver</a>
+            <input type="submit" value="Editar" class="btn btn-outline-success" />
+        </div>
+    </form>
+</div>
