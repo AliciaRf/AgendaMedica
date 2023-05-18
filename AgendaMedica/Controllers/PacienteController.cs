@@ -3,16 +3,15 @@ using AgendaMedica.Models;
 
 namespace AgendaMedica.Controllers
 {
-    public class UsuarioController : Controller
+    public class PacienteController : Controller
     {
         //instancia la clase que contiene la conexión a la db
         private BdagendaContext db = new();
 
-        //método para listar todas las Previsiones
         public IActionResult Index()
         {
             //select * from usuario
-            return View(db.Usuarios.ToList());
+            return View(db.Pacientes.ToList());
         }
 
         //método para crear
@@ -22,17 +21,17 @@ namespace AgendaMedica.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Usuario usuario)
+        public IActionResult Create(Paciente paciente)
         {
-            var existe = db.Usuarios.FirstOrDefault(x => x.Usuario1 == usuario.Usuario1);
+            var existe = db.Pacientes.FirstOrDefault(x => x.RutPac == paciente.RutPac);
             if (existe == null)
-                            
-            {                           
-                db.Add(usuario);
+
+            {
+                db.Add(paciente);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(usuario);
+            return View(paciente);
         }
         public IActionResult Edit(int? id)
         {
@@ -40,21 +39,21 @@ namespace AgendaMedica.Controllers
             if (id != null)
             {
                 //Find busca por la PK, es equivalente select * from marca where id = id
-                var usuario = db.Usuarios.Find(id);
+                var paciente = db.Pacientes.Find(id);
                 //verifica si marca encontro datos
-                if (usuario != null)
+                if (paciente != null)
                 {
                     //retorna a la vista Edit con los datos encontrados
-                    return View(usuario);
+                    return View(paciente);
                 }
             }
             //en caso de error, volver al index
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public IActionResult Edit(Usuario usuario)
+        public IActionResult Edit(Paciente paciente)
         {
-            db.Update(usuario);
+            db.Update(paciente);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -62,10 +61,10 @@ namespace AgendaMedica.Controllers
         {
             if (id != null)
             {
-                var usuario = db.Usuarios.Find(id);
-                if (usuario != null)
+                var paciente = db.Pacientes.Find(id);
+                if (paciente != null)
                 {
-                    db.Usuarios.Remove(usuario);
+                    db.Pacientes.Remove(paciente);
                     db.SaveChanges();
                 }
             }

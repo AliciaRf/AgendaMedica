@@ -1,0 +1,43 @@
+﻿@model AgendaMedica.Models.Paciente
+@{
+    ViewData["Title"] = "Ingresar Pacientes";
+}
+
+<h1>Ingresar pacientes</h1>
+<div>
+    <form asp-action="Create">
+        <div>
+            <label class="form-label">Rut Paciente</label>
+            <input type="text" class="form-control" asp-for="RutPac" />
+        </div>
+        <div>
+            <label class="form-label">Nombre Paciente</label>
+            <input type="text" class="form-control" asp-for="NombrePac" />
+        </div>
+        <div>
+            <label class="form-label">Apellido Paciente</label>
+            <input type="text" class="form-control" asp-for="ApellidosPac" />
+        </div>
+        <div>
+            <label class="form-label">Edad Paciente</label>
+            <input type="number" class="form-control" asp-for="EdadPac" />
+        </div>
+        <div>
+            <label class="form-label">Telefono Paciente</label>
+            <input type="text" class="form-control" asp-for="FonoPac" />
+        </div>
+        <div>
+            <label class="form-label">Direccion Paciente</label>
+            <input type="text" class="form-control" asp-for="DireccionPac" />
+        </div>
+        <div>
+            <label class="form-label">Correo Paciente</label>
+            <input type="text" class="form-control" asp-for="EmailPac" />
+        </div>
+                
+        <div class="mt-3 text-end">
+            <a asp-action="Index" class="btn btn-outline-info">Volver</a>
+            <input type="submit" value="Guardar" class="btn btn-outline-success" />
+        </div>
+    </form>
+</div>

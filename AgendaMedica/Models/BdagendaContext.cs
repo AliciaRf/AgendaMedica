@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
+using System.Runtime.Intrinsics.X86;
 using Microsoft.EntityFrameworkCore;
 
 namespace AgendaMedica.Models;
@@ -30,21 +32,9 @@ public partial class BdagendaContext : DbContext
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-            //IPVG 
-            //optiob nsBuilder.UseSqlServer("server=PC31LAB108; initial catalog=InventarioDB; user id=sa;password=ipvg2023;")        
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("server=.\\SQLEXPRESS; initial catalog=BDAgenda; user id=sa;password=admin;Encrypt=False");
 
-            // Casa Alicia                   
-            optionsBuilder.UseSqlServer("server=DESKTOP-RVLJI2G\\SQLEXPRESS; initial catalog=BDAgenda; user id=sa;password=Ariquelme; TrustServerCertificate=True;");//we
-
-            // Casa Cristobal                   
-            //optionsBuilder.UseSqlServer("server=PC-CRISTOBAL\\SQLEXPRESS; initial catalog=InventarioDB; user id=sa;password=lpw2023;");
-            // optionsBuilder.UseSqlServer("server=PC-CRISTOBAL\\SQLEXPRESS; initial catalog=InventarioDB; Trusted_connection =True;");
-            //optionsBuilder.UseSqlServer("server=tcp:SERVIDORM-PC\\SQLEXPRESS,49172; initial catalog=InventarioDB; user id=sa;password=Proceso5689;");
-        }
-    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Agendar>(entity =>

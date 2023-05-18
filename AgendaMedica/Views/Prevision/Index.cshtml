@@ -1,0 +1,29 @@
+﻿@model IEnumerable<AgendaMedica.Models.Prevision>
+
+<div class="text-end">
+    <a asp-action="Create" class="btn btn-primary">Ingresar Prevision</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Prevision</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.IdPrev</td>
+                <td>@item.NombrePrev</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdPrev"
+                       class="btn btn-warning"><i class="bi bi-pencil-square"> </i>Editar</a>
+                    <a asp-action="Delete" asp-route-id="@item.IdPrev"
+                       class="btn btn-danger"><i class="bi bi-trash"></i> Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
