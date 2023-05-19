@@ -1,0 +1,18 @@
+﻿@model AgendaMedica.Models.Agendar
+<h1>Editar Agendas</h1>
+
+<div>
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="IdAg" />
+        <div class="form-group">
+            <label class="form-label">Fecha</label>
+            <input type="DateTime" class="form-control" asp-for="FechaAg" />
+            <label class="form-label">Hora</label>
+            <input type="TimeSpan" class="form-control" asp-for="HoraAg" />
+             </div>
+        <div class="mt-3 text-end">
+            <a asp-action="Index" class="btn btn-outline-info">Volver</a>
+            <input type="submit" value="Editar" class="btn btn-outline-success" />
+        </div>
+    </form>
+</div>

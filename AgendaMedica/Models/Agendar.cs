@@ -36,6 +36,4 @@ public partial class Agendar
     public virtual Prevision IdPrevNavigation { get; set; } = null!;
 
     public virtual Sector IdSectorNavigation { get; set; } = null!;
-
-    public virtual Paciente RutPacNavigation { get; set; } = null!;
 }

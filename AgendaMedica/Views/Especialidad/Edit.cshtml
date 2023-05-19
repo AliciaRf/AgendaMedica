@@ -1,0 +1,16 @@
+﻿@model AgendaMedica.Models.Especialidad
+<h1>Editar Especialidad</h1>
+
+<div>
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="IdEsp" />
+        <div class="form-group">
+            <label class="form-label">Nombre</label>
+            <input type="text" class="form-control" asp-for="Especialidad1" />
+        </div>
+        <div class="mt-3 text-end">
+            <a asp-action="Index" class="btn btn-outline-info">Volver</a>
+            <input type="submit" value="Editar" class="btn btn-outline-success" />
+        </div>
+    </form>
+</div>
