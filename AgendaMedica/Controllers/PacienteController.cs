@@ -10,7 +10,7 @@ namespace AgendaMedica.Controllers
 
         public IActionResult Index()
         {
-            //select * from usuario
+            //select * from pacientes
             return View(db.Pacientes.ToList());
         }
 
@@ -23,24 +23,24 @@ namespace AgendaMedica.Controllers
         [HttpPost]
         public IActionResult Create(Paciente paciente)
         {
-            var existe = db.Pacientes.FirstOrDefault(x => x.RutPac == paciente.RutPac);
-            if (existe == null)
+           var existe = db.Pacientes.FirstOrDefault(x => x.RutPac == paciente.RutPac);
+           if (existe == null)
 
             {
                 db.Add(paciente);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(paciente);
+           return View(paciente);
         }
         public IActionResult Edit(int? id)
         {
-            //verifica si el id es distinto de null
+            
             if (id != null)
             {
-                //Find busca por la PK, es equivalente select * from marca where id = id
+                
                 var paciente = db.Pacientes.Find(id);
-                //verifica si marca encontro datos
+             
                 if (paciente != null)
                 {
                     //retorna a la vista Edit con los datos encontrados

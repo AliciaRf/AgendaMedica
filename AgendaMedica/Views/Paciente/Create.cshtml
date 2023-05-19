@@ -8,7 +8,7 @@
     <form asp-action="Create">
         <div>
             <label class="form-label">Rut Paciente</label>
-            <input type="text" class="form-control" asp-for="RutPac" />
+            <input type="text" class="form-control" asp-for="RutPac" />           
         </div>
         <div>
             <label class="form-label">Nombre Paciente</label>
@@ -24,7 +24,7 @@
         </div>
         <div>
             <label class="form-label">Telefono Paciente</label>
-            <input type="text" class="form-control" asp-for="FonoPac" />
+            <input type="tel" class="form-control" asp-for="FonoPac" />
         </div>
         <div>
             <label class="form-label">Direccion Paciente</label>
@@ -32,12 +32,12 @@
         </div>
         <div>
             <label class="form-label">Correo Paciente</label>
-            <input type="text" class="form-control" asp-for="EmailPac" />
+            <input type="email" class="form-control" asp-for="EmailPac" />
         </div>
                 
         <div class="mt-3 text-end">
             <a asp-action="Index" class="btn btn-outline-info">Volver</a>
             <input type="submit" value="Guardar" class="btn btn-outline-success" />
         </div>
-    </form>
+    </form>   
 </div>
