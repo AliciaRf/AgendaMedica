@@ -23,15 +23,15 @@ namespace AgendaMedica.Controllers
         [HttpPost]
         public IActionResult Create(Paciente paciente)
         {
-           // var existe = db.Pacientes.FirstOrDefault(x => x.RutPac == paciente.RutPac);
-           // if (existe == null)
+           var existe = db.Pacientes.FirstOrDefault(x => x.RutPac == paciente.RutPac);
+           if (existe == null)
 
             {
                 db.Add(paciente);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-           // return View(paciente);
+           return View(paciente);
         }
         public IActionResult Edit(int? id)
         {
