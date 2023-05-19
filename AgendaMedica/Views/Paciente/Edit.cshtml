@@ -1,0 +1,31 @@
+﻿@model AgendaMedica.Models.Paciente
+
+
+<h1>Editar Paciente</h1>
+
+<div>
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="IdPac" />
+        <div class="form-group">
+            <label class="form-label">Rut Paciente</label>
+            <input type="text" class="form-control" asp-for="RutPac" />
+            <label class="form-label">Nombre</label>
+            <input type="text" class="form-control" asp-for="NombrePac" />
+            <label class="form-label">Apellido Paciente</label>
+            <input type="text" class="form-control" asp-for="ApellidosPac" />
+            <label class="form-label">Edad Paciente</label>
+            <input type="number" class="form-control" asp-for="EdadPac" />       
+            <label class="form-label">Telefono Paciente</label>
+            <input type="tel" class="form-control" asp-for="FonoPac" />        
+            <label class="form-label">Direccion Paciente</label>
+            <input type="text" class="form-control" asp-for="DireccionPac" />      
+            <label class="form-label">Correo Paciente</label>
+            <input type="email" class="form-control" asp-for="EmailPac" />
+        </div>
+        <div class="mt-3 text-end">
+            <input type="reset" value="Limpiar" class="btn btn-info" />
+            <a asp-action="Index" class="btn btn-outline-info">Volver</a>
+            <input type="submit" value="Editar" class="btn btn-outline-success" />
+        </div>
+    </form>
+</div>

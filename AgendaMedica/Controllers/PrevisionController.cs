@@ -27,9 +27,8 @@ namespace AgendaMedica.Controllers
         {
             var existe = db.Previsions.FirstOrDefault(x => x.NombrePrev == prevision.NombrePrev);
             if (existe == null)
+
             {
-                //EntityFramework
-                //insert into marca(nombre) values('nombre marca')
                 db.Add(prevision);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -41,7 +40,7 @@ namespace AgendaMedica.Controllers
             //verifica si el id es distinto de null
             if (id != null)
             {
-                //Find busca por la PK, es equivalente select * from marca where id = id
+                //Find busca por la PK, es equivalente select * from prevision where id = id
                 var prevision = db.Previsions.Find(id);
                 //verifica si marca encontro datos
                 if (prevision != null)
