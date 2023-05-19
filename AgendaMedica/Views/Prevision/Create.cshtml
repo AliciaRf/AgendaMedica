@@ -5,14 +5,45 @@
 
 <h1>Ingresar Previsión</h1>
 <div>
-    <form asp-action="Create">
-        <div>
-            <label class="form-label">Previsión</label>
-            <input type="text" class="form-control" asp-for="NombrePrev" />
+    <form asp-action="Create" >
+
+        <div class ="mb-3 mt-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" onblur="lostfocus('NombrePrev')" name="prevision" class="form-control" asp-for="NombrePrev" />
+            <div id="eprevision"></div>
         </div>
         <div class="mt-3 text-end">
             <a asp-action="Index" class="btn btn-outline-info">Volver</a>
-            <input type="submit" value="Guardar" class="btn btn-outline-success" />
+            <input type="submit" value="Guardar" onclick="validar()" class=" btn btn-outline-success" />
         </div>
-    </form>
+    </form>    
 </div>
+
+<script>
+    function validar() {
+        lostfocus('prevision')      
+    }
+
+    function lostfocus(idInput) {
+        // error que se mostrara en caso de estar vacio el campo
+        const msjError =
+            '<span class = "badge bg-danger"> El campo es obligatorio </span>'
+        // valida si el campo esta vacio o no
+        if (document.getElementById(idInput).value.trim() == '')
+            //sirve para agregar elementos a html por js
+            document.getElementById('e' + idInput).innerHTML = msjError
+        else
+            document.getElementById('e' + idInput).innerHTML = ''
+    }
+
+    function limpiar() {
+        console.log(document.querySelectorAll('input'))
+        document.querySelectorAll('.form-control').forEach(item => {
+            item.value = ''
+        })
+        document.querySelectorAll('span').forEach(item => {
+            item.innerHTML = ''
+        })
+    }  
+
+</script>

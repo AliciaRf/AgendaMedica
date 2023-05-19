@@ -27,14 +27,17 @@ namespace AgendaMedica.Controllers
         {
             var existe = db.Previsions.FirstOrDefault(x => x.NombrePrev == prevision.NombrePrev);
             if (existe == null)
-            {
-                //EntityFramework
-                //insert into marca(nombre) values('nombre marca')
+            {                
                 db.Add(prevision);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(prevision);
+            else
+            {
+                ViewBag.Error = "La Prevision ya existe";
+                return View(prevision);
+            }
+            //return View(prevision);
         }
         public IActionResult Edit(int? id)
         {
