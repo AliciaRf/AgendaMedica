@@ -2,24 +2,35 @@
 @{
     ViewData["Title"] = "Agendar Paciente";
 }
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+
+<script>
+    $(fuction(){
+        $('.datepicker').datepicker();
+    });
+
+</script>
+
+
 <h1>Crear Agenda</h1>
 <div class="row">
     <form asp-action="Create">
-        <label class="form-label">Fecha</label>
-        <input type="date" class="form-control" asp-for="FechaAg" /> 
-        
-        <label class="form-label">Hora</label>
-        <input type="time" class="form-control" asp-for="HoraAg" />
 
+        <label >Agendar fecha</label>
+        <input type="date" class="form-control" asp-for="FechaAg"  />      
+         <label>Hora</label>
+        <input type="time" asp-for="HoraAg" class="form-control" />
         <label>Especialidad</label>
         <select asp-for="IdEsp" class="form-select" asp-items="ViewBag.IdEspecialidad"></select>
         <label>Tipo de Atencion</label>
-        <select asp-for="IdAte" class="form-control" asp-items="ViewBag.IdAtenciones"></select>
-        
+        <select asp-for="IdAte" class="form-control" asp-items="ViewBag.IdAtenciones"></select>        
         <label>pacientes Rut</label>
-        <select asp-for="RutPac" class="form-control" asp-items="ViewBag.IdPaciente"></select>
+        <input asp-for="RutPac" class="form-control" />
         <label>Nombre paciente</label>
-         <input asp-for="NomPac" class="form-control" />
+        <input asp-for="NomPac" class="form-control" />
         <label>Apellidos paciente</label>
         <input asp-for="ApePac" class="form-control" />
         <label>prevision</label>
@@ -33,6 +44,7 @@
 
         <div class="text-end mt-3">
             <input type="reset" value="Limpiar" class="btn btn-info" />
+            <a asp-action="Index" class="btn btn-outline-info">Volver</a>
             <input type="submit" value="Guardar" class="btn btn-primary" />
         </div>
     </form>

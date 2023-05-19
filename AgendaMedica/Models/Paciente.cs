@@ -5,6 +5,8 @@ namespace AgendaMedica.Models;
 
 public partial class Paciente
 {
+    public int IdPac { get; set; }
+
     public string RutPac { get; set; } = null!;
 
     public string NombrePac { get; set; } = null!;
@@ -18,6 +20,4 @@ public partial class Paciente
     public string DireccionPac { get; set; } = null!;
 
     public string? EmailPac { get; set; }
-
-    public virtual ICollection<Agendar> Agendars { get; set; } = new List<Agendar>();
 }

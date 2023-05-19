@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.CodeAnalysis.Elfie.Serialization;
-using System.Runtime.Intrinsics.X86;
 using Microsoft.EntityFrameworkCore;
 
 namespace AgendaMedica.Models;
@@ -32,8 +30,8 @@ public partial class BdagendaContext : DbContext
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("server=.\\SQLEXPRESS; initial catalog=BDAgenda; user id=sa;password=admin;Encrypt=False");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("server=DESKTOP-RVLJI2G\\SQLEXPRESS; initial catalog=BDAgenda; user id=sa;password=admin;Encrypt=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -92,11 +90,6 @@ public partial class BdagendaContext : DbContext
                 .HasForeignKey(d => d.IdSector)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Agendar_Sector");
-
-            entity.HasOne(d => d.RutPacNavigation).WithMany(p => p.Agendars)
-                .HasForeignKey(d => d.RutPac)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Agendar_Paciente1");
         });
 
         modelBuilder.Entity<Atencion>(entity =>
@@ -127,14 +120,11 @@ public partial class BdagendaContext : DbContext
 
         modelBuilder.Entity<Paciente>(entity =>
         {
-            entity.HasKey(e => e.RutPac);
+            entity.HasKey(e => e.IdPac).HasName("PK_Paciente_1");
 
             entity.ToTable("Paciente");
 
-            entity.Property(e => e.RutPac)
-                .HasMaxLength(10)
-                .IsUnicode(false)
-                .HasColumnName("rut_pac");
+            entity.Property(e => e.IdPac).HasColumnName("id_pac");
             entity.Property(e => e.ApellidosPac)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -156,6 +146,10 @@ public partial class BdagendaContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("nombre_pac");
+            entity.Property(e => e.RutPac)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("rut_pac");
         });
 
         modelBuilder.Entity<Prevision>(entity =>
