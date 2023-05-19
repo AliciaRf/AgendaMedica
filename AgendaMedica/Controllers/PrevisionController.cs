@@ -27,24 +27,20 @@ namespace AgendaMedica.Controllers
         {
             var existe = db.Previsions.FirstOrDefault(x => x.NombrePrev == prevision.NombrePrev);
             if (existe == null)
-            {                
+
+            {
                 db.Add(prevision);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            else
-            {
-                ViewBag.Error = "La Prevision ya existe";
-                return View(prevision);
-            }
-            //return View(prevision);
+            return View(prevision);
         }
         public IActionResult Edit(int? id)
         {
             //verifica si el id es distinto de null
             if (id != null)
             {
-                //Find busca por la PK, es equivalente select * from marca where id = id
+                //Find busca por la PK, es equivalente select * from prevision where id = id
                 var prevision = db.Previsions.Find(id);
                 //verifica si marca encontro datos
                 if (prevision != null)

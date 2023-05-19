@@ -9,12 +9,12 @@
 
         <div class ="mb-3 mt-3">
             <label class="form-label">Nombre</label>
-            <input type="text" onblur="lostfocus('NombrePrev')" name="prevision" class="form-control" asp-for="NombrePrev" />
-            <div id="eprevision"></div>
+            <input type="text" id="prevision" class="form-control" asp-for="NombrePrev" />
         </div>
         <div class="mt-3 text-end">
+            <input type="reset" value="Limpiar" onclick="FocusOnInput()" class="btn btn-info" />
             <a asp-action="Index" class="btn btn-outline-info">Volver</a>
-            <input type="submit" value="Guardar" onclick="validar()" class=" btn btn-outline-success" />
+            <input type="submit" value="Guardar" class=" btn btn-outline-success" />
         </div>
     </form>    
 </div>
@@ -32,18 +32,13 @@
         if (document.getElementById(idInput).value.trim() == '')
             //sirve para agregar elementos a html por js
             document.getElementById('e' + idInput).innerHTML = msjError
+            //document.getElementById("submit").disabled = true;
         else
             document.getElementById('e' + idInput).innerHTML = ''
+           // document.getElementById("submitButton").disabled = false;
     }
-
-    function limpiar() {
-        console.log(document.querySelectorAll('input'))
-        document.querySelectorAll('.form-control').forEach(item => {
-            item.value = ''
-        })
-        document.querySelectorAll('span').forEach(item => {
-            item.innerHTML = ''
-        })
-    }  
-
+    
+    function FocusOnInput() {
+        document.getElementById('prevision').focus();
+    }
 </script>
