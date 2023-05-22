@@ -26,25 +26,14 @@ namespace AgendaMedica.Controllers
         public IActionResult Create(Usuario usuario)
         {
             var existe = db.Usuarios.FirstOrDefault(x => x.NombreUs == usuario.NombreUs);
-            if (!ModelState.IsValid)
-            {
-                return View(usuario);
-            }
             if (existe == null)
+
             {
                 db.Add(usuario);
                 db.SaveChanges();
-                
-                TempData["Mensaje"] = "El usuario se ha creado con exito";
-                
                 return RedirectToAction("Index");
             }
-            else
-            {
-                TempData["Mensaje"] = "Ya existe un Usuario con ese nombre";
-
-                return View(usuario);
-            }
+            return View(usuario);
         }
 
         private void MessageProcessingHandler(string v)
@@ -57,7 +46,7 @@ namespace AgendaMedica.Controllers
             //verifica si el id es distinto de null
             if (id != null)
             {
-                //Find busca por la PK, es equivalente select * from marca where id = id
+               
                 var usuario = db.Usuarios.Find(id);
                 //verifica si marca encontro datos
                 if (usuario != null)
