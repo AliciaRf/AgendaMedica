@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using AgendaMedica.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace AgendaMedica.Controllers
 {
@@ -24,16 +25,33 @@ namespace AgendaMedica.Controllers
         [HttpPost]
         public IActionResult Create(Usuario usuario)
         {
-            var existe = db.Usuarios.FirstOrDefault(x => x.Usuario1 == usuario.Usuario1);
+            var existe = db.Usuarios.FirstOrDefault(x => x.NombreUs == usuario.NombreUs);
+            if (!ModelState.IsValid)
+            {
+                return View(usuario);
+            }
             if (existe == null)
-                            
-            {                           
+            {
                 db.Add(usuario);
                 db.SaveChanges();
+                
+                TempData["Mensaje"] = "El usuario se ha creado con exito";
+                
                 return RedirectToAction("Index");
             }
-            return View(usuario);
+            else
+            {
+                TempData["Mensaje"] = "Ya existe un Usuario con ese nombre";
+
+                return View(usuario);
+            }
         }
+
+        private void MessageProcessingHandler(string v)
+        {
+            throw new NotImplementedException();
+        }
+
         public IActionResult Edit(int? id)
         {
             //verifica si el id es distinto de null
@@ -51,13 +69,30 @@ namespace AgendaMedica.Controllers
             //en caso de error, volver al index
             return RedirectToAction("Index");
         }
+
         [HttpPost]
         public IActionResult Edit(Usuario usuario)
         {
-            db.Update(usuario);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                //verifica si el modelo es válido
+                if (!ModelState.IsValid)
+                {
+
+                    return View(usuario);
+                }
+                //actualiza los datos de la marca
+                db.Update(usuario);
+                //guarda los cambios
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View(usuario);
+            }
         }
+
         public IActionResult Delete(int? id)
         {
             if (id != null)
@@ -67,10 +102,10 @@ namespace AgendaMedica.Controllers
                 {
                     db.Usuarios.Remove(usuario);
                     db.SaveChanges();
-                }
+                    TempData["Mensaje1"] = "El Usuario fue eliminado Satisfactoriamente!";
+                }            
             }
             return RedirectToAction("Index");
         }
-
     }
 }

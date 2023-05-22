@@ -1,10 +1,17 @@
 ﻿@model IEnumerable<AgendaMedica.Models.Usuario>
 
+@if (TempData["Mensaje1"] != null)
+{
+    <script>
+        alert("@TempData["Mensaje1"]");
+    </script>
+}
+
 <div class="text-end">
     <a asp-action="Create" class="btn btn-primary">Ingresar Usuario</a>
 </div>
 <table class="table">
-    <thead>
+    <thead class="table-success">
         <tr>
             <th>ID</th>
             <th>Nombre Usuario</th>
