@@ -20,11 +20,26 @@ namespace AgendaMedica.Controllers
         {
             //EntityFramework
             //insert into especialidad(nombre) values('nombre especialidad')
-            db.Add(especialidad);
-            db.SaveChanges();
+            var existe = db.Especialidads.FirstOrDefault(x => x.Especialidad1 == especialidad.Especialidad1);
+            if (!ModelState.IsValid)
+            {
+                return View(especialidad);
+            }
+
+            if (existe == null)
+
+            {
+                db.Add(especialidad);
+                db.SaveChanges();
             // return View();
-            return RedirectToAction("Index");
+             return RedirectToAction("Index");
+            }
+
+            return View(especialidad);
+
         }
+
+
 
 
 
