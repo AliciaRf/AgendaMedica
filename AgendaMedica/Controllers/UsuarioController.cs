@@ -26,6 +26,11 @@ namespace AgendaMedica.Controllers
         public IActionResult Create(Usuario usuario)
         {
             var existe = db.Usuarios.FirstOrDefault(x => x.NombreUs == usuario.NombreUs);
+            if (!ModelState.IsValid)
+            {
+                return View(usuario);
+            }
+
             if (existe == null)
 
             {
@@ -33,20 +38,15 @@ namespace AgendaMedica.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            TempData["Mensaje"] = "Ya existe este Usuario con ese nombre";
             return View(usuario);
         }
-
-        private void MessageProcessingHandler(string v)
-        {
-            throw new NotImplementedException();
-        }
-
         public IActionResult Edit(int? id)
         {
             //verifica si el id es distinto de null
             if (id != null)
             {
-               
+
                 var usuario = db.Usuarios.Find(id);
                 //verifica si marca encontro datos
                 if (usuario != null)
@@ -91,8 +91,8 @@ namespace AgendaMedica.Controllers
                 {
                     db.Usuarios.Remove(usuario);
                     db.SaveChanges();
-                    TempData["Mensaje1"] = "El Usuario fue eliminado Satisfactoriamente!";
-                }            
+                    TempData["Mensaje1"] = "El Usuario fue eliminado Satisfactoriamente";
+                }
             }
             return RedirectToAction("Index");
         }
