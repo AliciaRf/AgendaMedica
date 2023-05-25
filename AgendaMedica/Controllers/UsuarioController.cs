@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using AgendaMedica.Models;
-using System.ComponentModel.DataAnnotations;
+
 
 namespace AgendaMedica.Controllers
 {
@@ -25,7 +25,8 @@ namespace AgendaMedica.Controllers
         [HttpPost]
         public IActionResult Create(Usuario usuario)
         {
-            var existe = db.Usuarios.FirstOrDefault(x => x.NombreUs == usuario.NombreUs);
+            //var existe = db.Usuarios.FirstOrDefault(x => x.NombreUs == usuario.NombreUs);
+            var existe = db.Usuarios.FirstOrDefault(x => x.Usuario1 == usuario.Usuario1);
             if (!ModelState.IsValid)
             {
                 return View(usuario);
@@ -41,6 +42,7 @@ namespace AgendaMedica.Controllers
             TempData["Mensaje"] = "Ya existe este Usuario con ese nombre";
             return View(usuario);
         }
+
         public IActionResult Edit(int? id)
         {
             //verifica si el id es distinto de null
@@ -81,6 +83,7 @@ namespace AgendaMedica.Controllers
                 return View(usuario);
             }
         }
+
 
         public IActionResult Delete(int? id)
         {
