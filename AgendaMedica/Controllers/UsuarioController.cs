@@ -25,7 +25,7 @@ namespace AgendaMedica.Controllers
         [HttpPost]
         public IActionResult Create(Usuario usuario)
         {
-            //var existe = db.Usuarios.FirstOrDefault(x => x.NombreUs == usuario.NombreUs);
+            //var existe = db.Usuarios.FirstOrDefault(x => x.NombreUs == usuario.NombreUs && x.Usuario1 == usuario.Usuario1);
             var existe = db.Usuarios.FirstOrDefault(x => x.Usuario1 == usuario.Usuario1);
             if (!ModelState.IsValid)
             {
