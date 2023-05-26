@@ -32,6 +32,7 @@ namespace AgendaMedica.Controllers
         [HttpPost]
         public IActionResult Create(Agendar agenda)
         {
+            
             db.Agendars.Add(agenda);
             db.SaveChanges();
             return RedirectToAction("Index");

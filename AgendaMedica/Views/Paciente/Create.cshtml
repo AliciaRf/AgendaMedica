@@ -36,8 +36,14 @@
         </div>
                 
         <div class="mt-3 text-end">
+            <input type="reset" value="Limpiar" onclick="FocusOnInput()" class="btn btn-info" />
             <a asp-action="Index" class="btn btn-outline-info">Volver</a>
             <input type="submit" value="Guardar" class="btn btn-outline-success" />
         </div>
     </form>   
 </div>
+   <script> 
+        function FocusOnInput() {
+        document.getElementById("rut").focus();
+    }
+    </script>

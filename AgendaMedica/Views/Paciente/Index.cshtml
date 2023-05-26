@@ -6,6 +6,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>ID</th>
             <th>Rut</th>
             <th>Nombre Paciente</th>
             <th>Apellido Paciente</th>
@@ -20,6 +21,7 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td>@item.IdPac</td>
                 <td>@item.RutPac</td>
                 <td>@item.NombrePac</td>
                 <td>@item.ApellidosPac</td>
@@ -28,9 +30,9 @@
                 <td>@item.DireccionPac</td>
                 <td>@item.EmailPac</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.RutPac"
+                    <a asp-action="Edit" asp-route-id="@item.IdPac"
                        class="btn btn-warning"><i class="bi bi-pencil-square"> </i>Editar</a>
-                    <a asp-action="Delete" asp-route-id="@item.RutPac"
+                    <a asp-action="Delete" asp-route-id="@item.IdPac"
                        class="btn btn-danger"><i class="bi bi-trash"></i> Eliminar</a>
                 </td>
             </tr>
