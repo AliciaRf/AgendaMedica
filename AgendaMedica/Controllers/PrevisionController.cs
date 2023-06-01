@@ -25,7 +25,13 @@ namespace AgendaMedica.Controllers
         [HttpPost]
         public IActionResult Create(Prevision prevision)
         {
+
             var existe = db.Previsions.FirstOrDefault(x => x.NombrePrev == prevision.NombrePrev);
+            if (!ModelState.IsValid)
+            {
+                return View(prevision);
+            }
+
             if (existe == null)
 
             {
@@ -33,8 +39,11 @@ namespace AgendaMedica.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            TempData["Mensaje"] = "Ya existe esta Prevision con ese nombre. " +
+                                  "Ingrese una nueva Previsioón por favor";
             return View(prevision);
         }
+
         public IActionResult Edit(int? id)
         {
             //verifica si el id es distinto de null
@@ -52,26 +61,44 @@ namespace AgendaMedica.Controllers
             //en caso de error, volver al index
             return RedirectToAction("Index");
         }
+
         [HttpPost]
         public IActionResult Edit(Prevision prevision)
         {
-            db.Update(prevision);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                //verifica si el modelo es válido
+                if (!ModelState.IsValid)
+                {
+
+                    return View(prevision);
+                }
+                //actualiza los datos de la marca
+                db.Update(prevision);
+                //guarda los cambios
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View(prevision);
+            }
         }
-        public IActionResult Delete(int? id)
+
+              
+        public IActionResult Delete(int? id )
         {
             if (id != null)
             {
-                var prevision = db.Previsions.Find(id);
-                if (prevision != null)
-                {
+               var prevision = db.Previsions.Find(id);
+               if (prevision != null)
+               { 
                     db.Previsions.Remove(prevision);
                     db.SaveChanges();
+                    TempData["Mensaje1"] = "La Prevision fue eliminada satisfactoriamente";
                 }
             }
             return RedirectToAction("Index");
         }
-
     }
 }
