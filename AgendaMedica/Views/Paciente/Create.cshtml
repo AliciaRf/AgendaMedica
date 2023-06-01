@@ -3,47 +3,95 @@
     ViewData["Title"] = "Ingresar Pacientes";
 }
 
-<h1>Ingresar pacientes</h1>
+@if (TempData["Mensaje"] != null)
+{
+    <script>
+        alert("@TempData["Mensaje"]");
+    </script>
+}
+
+<h1>Ingresar Pacientes</h1>
 <div>
     <form asp-action="Create">
+
         <div>
-            <label class="form-label">Rut Paciente</label>
-            <input type="text" class="form-control" asp-for="RutPac" />           
+            <label class="form-label">Rut del Paciente</label>
+            <input type="text" class="form-control" asp-for="RutPac" id="rut" onblur="lostfocus('rut')" placeholder="Ingrese el Rut" autocomplete="off" autofocus="on" />
+            <div id="erut"></div>
         </div>
         <div>
-            <label class="form-label">Nombre Paciente</label>
-            <input type="text" class="form-control" asp-for="NombrePac" />
+            <label class="form-label">Nombre del Paciente</label>
+            <input type="text" class="form-control" asp-for="NombrePac" id="nombre" onblur="lostfocus('nombre')" placeholder="Ingrese el Nombre" autocomplete="off" />
+            <div id="enombre"></div>
         </div>
         <div>
-            <label class="form-label">Apellido Paciente</label>
-            <input type="text" class="form-control" asp-for="ApellidosPac" />
+             <label class="form-label">Apellidos del Paciente</label>
+             <input type="text" class="form-control" asp-for="ApellidosPac" id="apellido" onblur="lostfocus('apellido')" placeholder="Ingrese el Apellido" autocomplete="off" />
+             <div id="eapellido"></div>
         </div>
         <div>
             <label class="form-label">Edad Paciente</label>
-            <input type="number" class="form-control" asp-for="EdadPac" />
+            <input type="number" class="form-control" asp-for="EdadPac" id="edad" onblur="lostfocus('edad')" placeholder="Ingrese la Edad" autocomplete="off" />
+            <div id="eedad"></div>
         </div>
         <div>
-            <label class="form-label">Telefono Paciente</label>
-            <input type="tel" class="form-control" asp-for="FonoPac" />
+            <label class="form-label">Telefono del Paciente</label>
+            <input type="tel" class="form-control" asp-for="FonoPac" id="fono" onblur="lostfocus('fono')" placeholder="Ingrese el Telefono" autocomplete="off" />
+            <div id="efono"></div>
         </div>
         <div>
-            <label class="form-label">Direccion Paciente</label>
-            <input type="text" class="form-control" asp-for="DireccionPac" />
+            <label class="form-label">Direccion del Paciente</label>
+            <input type="text" class="form-control" asp-for="DireccionPac" id="direccion" onblur="lostfocus('direccion')" placeholder="Ingrese la Dirección" autocomplete="off" />
+            <div id="edireccion"></div>
         </div>
         <div>
-            <label class="form-label">Correo Paciente</label>
-            <input type="email" class="form-control" asp-for="EmailPac" />
+            <label class="form-label">Correo del Paciente</label>
+            <input type="email" class="form-control" asp-for="EmailPac" id="correo" onblur="lostfocus('correo')" placeholder="Ingrese el Correo" autocomplete="off" />
+            <div id="ecorreo"></div>
         </div>
                 
         <div class="mt-3 text-end">
-            <input type="reset" value="Limpiar" onclick="FocusOnInput()" class="btn btn-info" />
             <a asp-action="Index" class="btn btn-outline-info">Volver</a>
-            <input type="submit" value="Guardar" class="btn btn-outline-success" />
+            <input type="reset" value="Limpiar" onclick="FocusOnInput(); limpiar()" class="btn btn-info" />
+            <input type="submit" value="Ingresar" class="btn btn-outline-success" />
         </div>
-    </form>   
+    </form>
 </div>
-   <script> 
-        function FocusOnInput() {
+
+<script>
+    function validar() {
+        lostfocus('rut')
+        lostfocus('nombre')
+        lostfocus('apellido')
+        lostfocus('edad')
+        lostfocus('fono')
+        lostfocus('direccion')
+        lostfocus('correo')
+    }
+
+    function lostfocus(idInput) {
+        // error que se mostrara en caso de estar vacio el campo
+        const msjError =
+            '<span class = "badge bg-danger"> El campo es obligatorio </span>'
+        // valida si el campo esta vacio o no
+        if (document.getElementById(idInput).value.trim() == '')
+            //sirve para agregar elementos a html por js
+            document.getElementById('e' + idInput).innerHTML = msjError
+        else
+            document.getElementById('e' + idInput).innerHTML = ''
+    }
+
+    function limpiar() {
+        console.log(document.querySelectorAll('input'))
+        document.querySelectorAll('.form-control').forEach(item => {
+            item.value = ''
+        })
+        document.querySelectorAll('span').forEach(item => {
+            item.innerHTML = ''
+        })
+    }
+
+    function FocusOnInput() {
         document.getElementById("rut").focus();
     }
-    </script>
+</script>

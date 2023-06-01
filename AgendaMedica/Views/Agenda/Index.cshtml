@@ -1,22 +1,32 @@
 ﻿@model IEnumerable<AgendaMedica.Models.Agendar>
-@{
+
+@if (TempData["Mensaje1"] != null)
+{
+    <script>
+        alert("@TempData["Mensaje1"]");
+    </script>
 }
-<h1>Lista de Agenda</h1>
-<hr />
+
+<h1>Agenda Medica</h1>
+
 <div class="text-end">
-    <a asp-action="Create" class="btn btn-outline-primary">Crear Agenda</a>
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Agendar Pacientes</a>
+    </p>
 </div>
-<table class="table table-bordered">
-    <thead class="bg-dark text-white">
+
+<table class="table">
+    <thead class="table-success">
         <tr>
+            <th>Id</th>
             <th>Fecha</th>
             <th>Hora</th>
             <th>Especialidad</th>
-            <th>tipo de atencion</th>
-            <th>Rut del paciente</th>
+            <th>Atención</th>
+            <th>Rut del Paciente</th>
             <th>Nombre del Paciente</th>
             <th>Apellidos del Paciente</th>
-            <th>Prevision</th>
+            <th>Previsión</th>
             <th>Telefono del Paciente</th>
             <th>Direccion del Paciente</th>
             <th>Sector</th>
@@ -27,9 +37,9 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td>@item.IdAg</td>
                 <td>@item.FechaAg</td>
                 <td>@item.HoraAg</td>
-
                 <td>@item.IdEspNavigation.Especialidad1</td>
                 <td>@item.IdAteNavigation.NombreAte</td>
                 <td>@item.RutPac</td>
@@ -39,9 +49,12 @@
                 <td>@item.FonoPac</td>
                 <td>@item.DirPac</td>
                 <td>@item.IdSectorNavigation.Sector1</td>
-                
+               
                 <td>
-                   
+                    <a asp-action="Edit" asp-route-id="@item.IdAg"
+                       class="btn btn-warning"><i class="bi bi-pencil-square"> </i>Editar</a>
+                    <a asp-action="Delete" asp-route-id="@item.IdAg"
+                       class="btn btn-danger"><i class="bi bi-trash"></i> Eliminar</a>
                 </td>
             </tr>
         }

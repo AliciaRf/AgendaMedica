@@ -1,41 +1,54 @@
-﻿@model AgendaMedica.Models.Paciente
+﻿@model AgendaMedica.Models.Agendar
 
 
-<h1>Editar Paciente</h1>
+<h1>Editar Agenda</h1>
 
 <div>
     <form asp-action="Edit" method="post" id="formulario" onsubmit="consulta1(event)">
-        <input type="hidden" asp-for="IdPac" />
+        <input type="hidden" asp-for="IdAg" />
 
         <div class="form-group">
-                <label class="form-label">Rut del Paciente</label>
-                <input type="text" class="form-control" asp-for="RutPac" id="rut" onblur="lostfocus('rut')" placeholder="Ingrese el Rut" autocomplete="off" autofocus="on" />
-                <div id="erut"></div>
-
-                <label class="form-label">Nombre del Paciente</label>
-                <input type="text" class="form-control" asp-for="NombrePac" id="nombre" onblur="lostfocus('nombre')" placeholder="Ingrese el Nombre" autocomplete="off" />
-                <div id="enombre"></div>
+                
+                <label class="form-label">Agendar Fecha</label>
+                <input type="date" class="form-control" asp-for="FechaAg" id="fecha" onblur="lostfocus('fecha')" placeholder="Agende Fecha" autocomplete="off" autofocus="on" />
+                <div id="efecha"></div>
            
+                <label class="form-label">Agendar Hora</label>
+                <input type="time" class="form-control" asp-for="HoraAg" id="hora" onblur="lostfocus('hora')" placeholder="Agende Hora" autocomplete="off" />
+                <div id="ehora"></div>
+            
+                <label class="form-label">Tipo de Especialidad</label>
+                <select asp-for="IdEsp" class="form-select" asp-items="ViewBag.IdEspecialidad"> </select>
+           
+                <label class="form-label">Tipo de Atención</label>
+                <select asp-for="IdAte" class="form-control" asp-items="ViewBag.IdAtenciones"></select>
+            
+                <label class="form-label">Rut del Paciente</label>
+                <input type="text" class="form-control" asp-for="RutPac" id="rut" onblur="lostfocus('rut')" placeholder="Ingrese el Rut" autocomplete="off" />
+                <div id="erut"></div>
+          
+                <label class="form-label">Nombre del Paciente</label>
+                <input type="text" class="form-control" asp-for="NomPac" id="nombre" onblur="lostfocus('nombre')" placeholder="Ingrese el Nombre" autocomplete="off" />
+                <div id="enombre"></div>
+            
                 <label class="form-label">Apellidos del Paciente</label>
-                <input type="text" class="form-control" asp-for="ApellidosPac" id="apellido" onblur="lostfocus('apellido')" placeholder="Ingrese el Apellido" autocomplete="off" />
+                <input type="text" class="form-control" asp-for="ApePac" id="apellido" onblur="lostfocus('apellido')" placeholder="Ingrese el Apellido" autocomplete="off" />
                 <div id="eapellido"></div>
             
-                <label class="form-label">Edad Paciente</label>
-                <input type="number" class="form-control" asp-for="EdadPac" id="edad" onblur="lostfocus('edad')" placeholder="Ingrese la Edad" autocomplete="off" />
-                <div id="eedad"></div>
-           
+                <label class="form-label">Previsión</label>
+                <select asp-for="IdPrev" class="form-control" asp-items="ViewBag.IdPrevision"></select>
+            
                 <label class="form-label">Telefono del Paciente</label>
                 <input type="tel" class="form-control" asp-for="FonoPac" id="fono" onblur="lostfocus('fono')" placeholder="Ingrese el Telefono" autocomplete="off" />
                 <div id="efono"></div>
            
                 <label class="form-label">Direccion del Paciente</label>
-                <input type="text" class="form-control" asp-for="DireccionPac" id="direccion" onblur="lostfocus('direccion')" placeholder="Ingrese la Dirección" autocomplete="off" />
+                <input type="text" class="form-control" asp-for="DirPac" id="direccion" onblur="lostfocus('direccion')" placeholder="Ingrese la Dirección" autocomplete="off" />
                 <div id="edireccion"></div>
             
-                <label class="form-label">Correo del Paciente</label>
-                <input type="email" class="form-control" asp-for="EmailPac" id="correo" onblur="lostfocus('correo')" placeholder="Ingrese el Correo" autocomplete="off" />
-                <div id="ecorreo"></div>            
-        </div> 
+                <label class="form-label">Sector del paciente</label>
+                <select asp-for="IdSector" class="form-control" asp-items="ViewBag.IdSectores"></select>
+            </div>
 
         <div class="mt-3 text-end">
             <a asp-action="Index" class="btn btn-outline-info">Volver</a>
@@ -67,13 +80,13 @@
     }
 
     function validar() {
+        lostfocus('fecha')
+        lostfocus('hora')
         lostfocus('rut')
         lostfocus('nombre')
         lostfocus('apellido')
-        lostfocus('edad')
         lostfocus('fono')
         lostfocus('direccion')
-        lostfocus('correo')
     }
 
     function lostfocus(idInput) {
@@ -99,7 +112,7 @@
     }
 
     function FocusOnInput() {
-        document.getElementById("rut").focus();
+        document.getElementById("hora").focus();
     }
 
 </script>

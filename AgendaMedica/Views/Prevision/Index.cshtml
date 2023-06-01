@@ -1,10 +1,22 @@
 ﻿@model IEnumerable<AgendaMedica.Models.Prevision>
 
+@if (TempData["Mensaje1"] != null)
+{
+    <script>
+        alert("@TempData["Mensaje1"]");
+    </script>
+}
+
+<h1>Previsión</h1>
+
 <div class="text-end">
-    <a asp-action="Create" class="btn btn-primary">Ingresar Prevision</a>
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Ingresar Previsión</a>
+    </p>
 </div>
+
 <table class="table">
-    <thead>
+    <thead class="table-success">
         <tr>
             <th>ID</th>
             <th>Prevision</th>

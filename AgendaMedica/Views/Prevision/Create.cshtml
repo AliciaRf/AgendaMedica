@@ -1,27 +1,36 @@
 ﻿@model AgendaMedica.Models.Prevision
+
 @{
     ViewData["Title"] = "Ingresar Prevision";
 }
 
+@if (TempData["Mensaje"] != null)
+{
+    <script>
+        alert("@TempData["Mensaje"]");
+    </script>
+}
+
 <h1>Ingresar Previsión</h1>
 <div>
-    <form asp-action="Create" >
+    <form asp-action="Create">
 
-        <div class ="mb-3 mt-3">
-            <label class="form-label">Nombre</label>
-            <input type="text" id="prevision" class="form-control" asp-for="NombrePrev" />
+        <div>
+            <label class="form-label">Nombre de la Previsión</label>
+            <input type="text" class="form-control" asp-for="NombrePrev" id="prevision" onblur="lostfocus('prevision')" placeholder="Ingrese la Previsión" autocomplete="off" autofocus="on" />
+            <div id="eprevision"></div>
         </div>
         <div class="mt-3 text-end">
-            <input type="reset" value="Limpiar" onclick="FocusOnInput()" class="btn btn-info" />
             <a asp-action="Index" class="btn btn-outline-info">Volver</a>
-            <input type="submit" value="Guardar" class=" btn btn-outline-success" />
+            <input type="reset" value="Limpiar" onclick="FocusOnInput(); limpiar()" class="btn btn-info" />
+            <input type="submit" value="Ingresar" class="btn btn-outline-success" />
         </div>
-    </form>    
+    </form>
 </div>
 
 <script>
     function validar() {
-        lostfocus('prevision')      
+        lostfocus('prevision')
     }
 
     function lostfocus(idInput) {
@@ -32,13 +41,21 @@
         if (document.getElementById(idInput).value.trim() == '')
             //sirve para agregar elementos a html por js
             document.getElementById('e' + idInput).innerHTML = msjError
-            //document.getElementById("submit").disabled = true;
         else
             document.getElementById('e' + idInput).innerHTML = ''
-           // document.getElementById("submitButton").disabled = false;
     }
-    
+
+    function limpiar() {
+        console.log(document.querySelectorAll('input'))
+        document.querySelectorAll('.form-control').forEach(item => {
+            item.value = ''
+        })
+        document.querySelectorAll('span').forEach(item => {
+            item.innerHTML = ''
+        })
+    }
+
     function FocusOnInput() {
-        document.getElementById('prevision').focus();
+        document.getElementById("prevision").focus();
     }
 </script>
