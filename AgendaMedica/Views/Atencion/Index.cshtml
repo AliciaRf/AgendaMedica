@@ -1,14 +1,25 @@
 ﻿@model IEnumerable<AgendaMedica.Models.Atencion>
 
-<div class="text-end">
-    <a asp-action="create" class="btn btn-primary">Crear Atenciones</a>
+@if (TempData["Mensaje1"] != null)
+{
+    <script>
+        alert("@TempData["Mensaje1"]");
+    </script>
+}
 
+<h1>Atenciones</h1>
+
+<div class="text-end">
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Ingresar Atención</a>
+    </p>
 </div>
-<table class="table table-bordered">
-    <thead class="bg-dark text-white">
+
+<table class="table">
+    <thead class="table-success">
         <tr>
             <th>ID</th>
-            <th>Atenciones</th>
+            <th>Atención</th>
             <th></th>
         </tr>
     </thead>
@@ -18,12 +29,13 @@
             <tr>
                 <td>@item.IdAte</td>
                 <td>@item.NombreAte</td>
-                <td>
-                        <a asp-action="Edit" asp-route-id="@item.IdAte" 
-                        class="btn btn-warning"><i class="bi bi-pencil-square"> </i>Editar</a>
-                                <a asp-action="Delete" asp-route-id="@item.IdAte"
-                        class="btn btn-danger"><i class="bi bi-trash"></i> Eliminar</a>
-                </td>
-            </tr>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.IdAte"
+                           class="btn btn-warning"><i class="bi bi-pencil-square"> </i>Editar</a>
+                            <a asp-action="Delete" asp-route-id="@item.IdAte"
+                           class="btn btn-danger"><i class="bi bi-trash"></i> Eliminar</a>
+                    </td>
+             </tr>
         }
-        </table>
+    </tbody>
+</table>

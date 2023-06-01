@@ -40,7 +40,7 @@ namespace AgendaMedica.Controllers
                 return RedirectToAction("Index");
             }
             TempData["Mensaje"] = "Ya existe esta Prevision con ese nombre. " +
-                                  "Ingrese una nueva Previsioón por favor";
+                                  "Ingrese una nueva Prevision por favor";
             return View(prevision);
         }
 

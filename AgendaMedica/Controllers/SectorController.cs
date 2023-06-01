@@ -34,7 +34,7 @@ namespace AgendaMedica.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            TempData["Mensaje"] = "Ya existe este Sector con ese nombre. " +
+            TempData["Mensaje"] = "Ya existe este Sector con ese nombre.  " +
                                   "Ingrese un nuevo Sector por favor";
             return View(sector);
         }

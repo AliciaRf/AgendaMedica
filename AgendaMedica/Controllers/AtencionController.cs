@@ -21,15 +21,24 @@ namespace AgendaMedica.Controllers
         [HttpPost]
         public IActionResult Create(Atencion atencion)
         {
-            //EntityFramework
-            //insert into marca(nombre) values('nombre marca')
-            db.Add(atencion);
-            db.SaveChanges();
-            // return View();
-            return RedirectToAction("Index");
+
+            var existe = db.Atencions.FirstOrDefault(x => x.NombreAte == atencion.NombreAte);
+            if (!ModelState.IsValid)
+            {
+                return View(atencion);
+            }
+
+            if (existe == null)
+
+            {
+                db.Add(atencion);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            TempData["Mensaje"] = "Ya existe esta Atencion con ese nombre.  " +
+                                  "Ingrese una nueva atencion por favor";
+            return View(atencion);
         }
-
-
 
         public IActionResult Edit(int? id)
         {
@@ -52,26 +61,42 @@ namespace AgendaMedica.Controllers
         [HttpPost]
         public IActionResult Edit(Atencion atencion)
         {
-            db.Update(atencion);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                //verifica si el modelo es válido
+                if (!ModelState.IsValid)
+                {
+
+                    return View(atencion);
+                }
+                //actualiza los datos de la marca
+                db.Update(atencion);
+                //guarda los cambios
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View(atencion);
+            }
         }
+
 
         public IActionResult Delete(int? id)
         {
             if (id != null)
             {
-                var atenciones = db.Atencions.Find(id);
-                if (atenciones != null)
+                var atencion = db.Atencions.Find(id);
+                if (atencion != null)
                 {
-                    db.Atencions.Remove(atenciones);
+                    db.Atencions.Remove(atencion);
                     db.SaveChanges();
+                    TempData["Mensaje1"] = "La atencion fue eliminado Satisfactoriamente";
                 }
             }
             return RedirectToAction("Index");
         }
-
-
-
     }
 }
+
+
