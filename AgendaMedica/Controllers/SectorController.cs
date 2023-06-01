@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using AgendaMedica.Models;
-using System.Text.RegularExpressions;
 
 namespace AgendaMedica.Controllers
 {
@@ -21,12 +20,23 @@ namespace AgendaMedica.Controllers
         [HttpPost]
         public IActionResult Create(Sector sector)
         {
-            //EntityFramework
-            //insert into marca(nombre) values('nombre marca')
-            db.Add(sector);
-            db.SaveChanges();
-            // return View();
-            return RedirectToAction("Index");
+            
+            var existe = db.Sectors.FirstOrDefault(x => x.Sector1 == sector.Sector1);
+            if (!ModelState.IsValid)
+            {
+                return View(sector);
+            }
+
+            if (existe == null)
+
+            {
+                db.Add(sector);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            TempData["Mensaje"] = "Ya existe este Sector con ese nombre.  " +
+                                  "Ingrese un nuevo Sector por favor";
+            return View(sector);
         }
 
         public IActionResult Edit(int? id)
@@ -50,25 +60,42 @@ namespace AgendaMedica.Controllers
         [HttpPost]
         public IActionResult Edit(Sector sector)
         {
-            db.Update(sector);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                //verifica si el modelo es válido
+                if (!ModelState.IsValid)
+                {
+
+                    return View(sector);
+                }
+                //actualiza los datos de la marca
+                db.Update(sector);
+                //guarda los cambios
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View(sector);
+            }
         }
+
 
         public IActionResult Delete(int? id)
         {
             if (id != null)
             {
-                var marca = db.Sectors.Find(id);
-                if (marca != null)
+                var usuario = db.Sectors.Find(id);
+                if (usuario != null)
                 {
-                    db.Sectors.Remove(marca);
+                    db.Sectors.Remove(usuario);
                     db.SaveChanges();
+                    TempData["Mensaje1"] = "El Sector fue eliminado Satisfactoriamente";
                 }
             }
             return RedirectToAction("Index");
         }
-
-
     }
 }
+
+    

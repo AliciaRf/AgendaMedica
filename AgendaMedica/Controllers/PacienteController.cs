@@ -23,16 +23,25 @@ namespace AgendaMedica.Controllers
         [HttpPost]
         public IActionResult Create(Paciente paciente)
         {
-           var existe = db.Pacientes.FirstOrDefault(x => x.RutPac == paciente.RutPac);
-           if (existe == null)
+            //var existe = db.Usuarios.FirstOrDefault(x => x.NombreUs == usuario.NombreUs && x.Usuario1 == usuario.Usuario1);
+            var existe = db.Pacientes.FirstOrDefault(x => x.RutPac == paciente.RutPac);
+            if (!ModelState.IsValid)
+            {
+                return View(paciente);
+            }
+
+            if (existe == null)
 
             {
                 db.Add(paciente);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-           return View(paciente);
+            TempData["Mensaje"] = "Ya existe este Paciente con ese rut.  " +
+                                  "Ingrese un nuevo Paciente por favor";
+            return View(paciente);
         }
+
         public IActionResult Edit(int? id)
         {
             
@@ -50,13 +59,31 @@ namespace AgendaMedica.Controllers
             //en caso de error, volver al index
             return RedirectToAction("Index");
         }
+       
         [HttpPost]
         public IActionResult Edit(Paciente paciente)
         {
-            db.Update(paciente);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                //verifica si el modelo es válido
+                if (!ModelState.IsValid)
+                {
+
+                    return View(paciente);
+                }
+                //actualiza los datos de la marca
+                db.Update(paciente);
+                //guarda los cambios
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View(paciente);
+            }
         }
+
+
         public IActionResult Delete(int? id)
         {
             if (id != null)
@@ -66,10 +93,10 @@ namespace AgendaMedica.Controllers
                 {
                     db.Pacientes.Remove(paciente);
                     db.SaveChanges();
+                    TempData["Mensaje1"] = "El Paciente fue eliminado Satisfactoriamente";
                 }
             }
             return RedirectToAction("Index");
         }
-
     }
 }

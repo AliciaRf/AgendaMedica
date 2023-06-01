@@ -1,14 +1,25 @@
 ﻿@model IEnumerable<AgendaMedica.Models.Sector>
 
-<div class="text-end">
-    <a asp-action="create" class="btn btn-primary">Crear Sector</a>
+@if (TempData["Mensaje1"] != null)
+{
+    <script>
+        alert("@TempData["Mensaje1"]");
+    </script>
+}
 
+<h1>Sector</h1>
+
+<div class="text-end">
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Ingresar Sector</a>
+    </p>
 </div>
-<table class="table table-bordered">
-    <thead class="bg-dark text-white">
+
+<table class="table">
+    <thead class="table-success">
         <tr>
             <th>ID</th>
-            <th>Sector</th>
+            <th>Sector</th>            
             <th></th>
         </tr>
     </thead>
@@ -17,13 +28,14 @@
         {
             <tr>
                 <td>@item.IdSector</td>
-                <td>@item.Sector1</td>
+                <td>@item.Sector1</td>                
                 <td>
-                        <a asp-action="Edit" asp-route-id="@item.IdSector " 
-                        class="btn btn-warning"><i class="bi bi-pencil-square"> </i>Editar</a>
-                                <a asp-action="Delete" asp-route-id="@item.IdSector "
-                        class="btn btn-danger"><i class="bi bi-trash"></i> Eliminar</a>
+                    <a asp-action="Edit" asp-route-id="@item.IdSector"
+                       class="btn btn-warning"><i class="bi bi-pencil-square"> </i>Editar</a>
+                    <a asp-action="Delete" asp-route-id="@item.IdSector"
+                       class="btn btn-danger"><i class="bi bi-trash"></i> Eliminar</a>
                 </td>
             </tr>
         }
-        </table>
+    </tbody>
+</table>

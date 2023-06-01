@@ -39,7 +39,8 @@ namespace AgendaMedica.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            TempData["Mensaje"] = "Ya existe este Usuario con ese nombre";
+            TempData["Mensaje"] = "Ya existe este Usuario con ese nombre.  " +
+                                  "Ingrese un nuevo Usuario por favor";
             return View(usuario);
         }
 

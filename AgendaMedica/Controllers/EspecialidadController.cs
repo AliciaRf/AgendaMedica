@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using AgendaMedica.Models;
+
 namespace AgendaMedica.Controllers
 {
     public class EspecialidadController : Controller
@@ -15,11 +16,11 @@ namespace AgendaMedica.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult Create(Especialidad especialidad)
         {
-            //EntityFramework
-            //insert into especialidad(nombre) values('nombre especialidad')
+
             var existe = db.Especialidads.FirstOrDefault(x => x.Especialidad1 == especialidad.Especialidad1);
             if (!ModelState.IsValid)
             {
@@ -31,17 +32,12 @@ namespace AgendaMedica.Controllers
             {
                 db.Add(especialidad);
                 db.SaveChanges();
-            // return View();
-             return RedirectToAction("Index");
+                return RedirectToAction("Index");
             }
-
+            TempData["Mensaje"] = "Ya existe esta Especialidad con ese nombre.  " +
+                                  "Ingrese una nueva Especialidad por favor";
             return View(especialidad);
-
         }
-
-
-
-
 
         public IActionResult Edit(int? id)
         {
@@ -64,27 +60,42 @@ namespace AgendaMedica.Controllers
         [HttpPost]
         public IActionResult Edit(Especialidad especialidad)
         {
-            db.Update(especialidad);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        public IActionResult Delete(int? id)
-        {
-            if (id != null)
-            {
-                var especialidad = db.Especialidads.Find(id);
-                if (especialidad != null)
+                try
                 {
-                    db.Especialidads.Remove(especialidad);
+                    //verifica si el modelo es válido
+                    if (!ModelState.IsValid)
+                    {
+
+                        return View(especialidad);
+                    }
+                    //actualiza los datos de la marca
+                    db.Update(especialidad);
+                    //guarda los cambios
                     db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View(especialidad);
                 }
             }
-            return RedirectToAction("Index");
+
+
+            public IActionResult Delete(int? id)
+            {
+                if (id != null)
+                {
+                    var especialidad = db.Especialidads.Find(id);
+                    if (especialidad != null)
+                    {
+                        db.Especialidads.Remove(especialidad);
+                        db.SaveChanges();
+                        TempData["Mensaje1"] = "La Especialidad fue eliminada Satisfactoriamente";
+                    }
+                }
+                return RedirectToAction("Index");
+            }
         }
-
-
-
-
     }
-}
+
+    
