@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using AgendaMedica.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using AgendaMedica.Models;
-using System.ComponentModel.DataAnnotations;
+using System.Globalization;
+
 
 namespace AgendaMedica.Controllers
 {
@@ -13,8 +14,11 @@ namespace AgendaMedica.Controllers
 
         public IActionResult Index()
         {
-            var agendas = db.Agendars.Include(p => p.IdEspNavigation). Include(p => p.IdAteNavigation). Include(p => p.IdSectorNavigation).Include(p => p.IdPrevNavigation);
-            return View(agendas);           
+            var agendar = db.Agendars.Include(p => p.IdEspNavigation)
+                                     .Include(p => p.IdAteNavigation)
+                                     .Include(p => p.IdSectorNavigation)
+                                     .Include(p => p.IdPrevNavigation);
+            return View(agendar);           
         }
 
 
@@ -31,67 +35,54 @@ namespace AgendaMedica.Controllers
         [HttpPost]
         public IActionResult Create(Agendar agendar)
         {
-            //var existe = db.Usuarios.FirstOrDefault(x => x.NombreUs == usuario.NombreUs && x.Usuario1 == usuario.Usuario1);
-            var existe = db.Agendars.FirstOrDefault(x => x.RutPac == agendar.RutPac);
-            if (!ModelState.IsValid)
-            {
-                return View(agendar);
-            }
+            //var existe = db.Agendars.FirstOrDefault(x => x.FechaAg == agendar.FechaAg && x.HoraAg == agendar.HoraAg);
+            //var existe = db.Agendars.FirstOrDefault(x => x.HoraAg == agendar.HoraAg);
+            //if (!ModelState.IsValid)
+          //  {
+            //    return View(agendar);
+          //  }
 
-            if (existe == null)
+          //  if (existe == null)
 
-            {
+        //  {
                 db.Add(agendar);
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
-            TempData["Mensaje"] = "Ya existe este Paciente con ese rut.  " +
-                                  "Agende un nuevo Paciente por favor";
-            return View(agendar);
+           // }
+        //TempData["Mensaje"] = "Ya existe este Paciente con ese rut.  " +
+         //                     "Agende un nuevo Paciente por favor";
+         //  return View(agendar);
         }
 
 
 
         public IActionResult Edit(int? id)
         {
+            ViewData["IdEsp"] = new SelectList(db.Especialidads, "IdEsp", "Especialidad1");
+            ViewData["IdAte"] = new SelectList(db.Atencions, "IdAte", "NombreAte");
+            ViewData["IdSector"] = new SelectList(db.Sectors, "IdSector", "Sector1");
+            ViewData["IdPrev"] = new SelectList(db.Previsions, "IdPrev", "NombrePrev");
+           
             if (id != null)
             {
                 var agendar = db.Agendars.Find(id);
                 if (agendar != null)
                 {
-                    ViewData["IdEsp"] = new SelectList(db.Especialidads, "IdEsp","Especialidad1",agendar.IdEsp);
-                    ViewData["IdAte"] = new SelectList(db.Atencions, "IdAte", "NombreAte", agendar.IdAte);
-                    ViewData["IdSector"] = new SelectList(db.Sectors, "IdSector", "Sector1", agendar.IdSector);
-                    ViewData["IdPrev"] = new SelectList(db.Previsions, "IdPrev", "NombrePrev", agendar.IdPrev);
                     return View(agendar);
                 }
 
             }
             return RedirectToAction("Index");
-
         }
 
         [HttpPost]
         public IActionResult Edit(Agendar agendar)
         {
-            try
-            {
-                //verifica si el modelo es válido
-                if (!ModelState.IsValid)
-                {
-
-                    return View(agendar);
-                }
-                //actualiza los datos de la marca
-                db.Update(agendar);
-                //guarda los cambios
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View(agendar);
-            }
+            //actualiza los datos de la marca
+            db.Update(agendar);
+            //guarda los cambios
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
 
@@ -104,7 +95,7 @@ namespace AgendaMedica.Controllers
                 {
                     db.Agendars.Remove(agendar);
                     db.SaveChanges();
-                    TempData["Mensaje1"] = "La Hora Agendada fue eliminado Satisfactoriamente";
+                    TempData["Mensaje1"] = "La Hora Agendada fue eliminada Satisfactoriamente";
                 }
             }
             return RedirectToAction("Index");
